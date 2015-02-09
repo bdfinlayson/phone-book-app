@@ -8,14 +8,10 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 script:
-  - npm run test -- karma.conf.js
+  - npm run test-once
 after_script:
   - cat ./coverage/PhantomJS*/lcov.info | ./node_modules/codeclimate-test-reporter/bin/codeclimate.js
 env:
   global:
-    - secure: NJ9m+sRYexK0x9PqKt+Tht+zTqk3rbM3KKr+Jf5EBPhV4XoHzgT2q0ylNsQBuGLNwaHX6bX3U6GuQyQlB6J/flLJ0eC2qwZtJ/8S0ofPasRq90vENmvKALp4MyuuMdtxAQDGUT8sQoXqLEcircoETi6mgM+e3rjp3bk7kkk6FMM=
-    - secure: JAG67ZDRo5VZHbMbC1QPdZlDiWacn3bLSpvE+J0oD3E22BWsgzhsYL2VQCyAlElkZqlZa8+ZvRwsyboJFbXDUjMfBNi8Muxq3rAh1+KtF2VNtypXNDp/1cAaiSHp83M73EWML4kGYTwIZ4wFxS6d+YMl8jA5aDdAthHafWrliCE=
-    - secure: XOkSsOpkK6TGonSVQy/BQNBcw8JZ/OiHcbJIkq7CMILh4suU4CN45cS6lMYG6+rdt3blsKH6TY7vtmgVUmgUayb/ULVKU7A7RbxWGQY4eKNKULooDdCCzcFxs7BXooSHsDXkfh/0qLpBfGV9gJHXQG2EF/drzHmGP4Zt1uZQFhw=
-    - secure: P8ebGl74FXMJFHbX+G/8g3F9LDZLmIjtT+Fo3Rvoaz8BpGh16JSe7TR+prmrUOAE//y8X7JPriw/h2nYVD80sIuJlAiS8Qg8lY0UupUI+pd+LD6C6eebDQ5pgpphGed4pbTz7q1QZQ7HI3HUesH35hElqIA6w97JtS0S6cWn5iY=
-    - secure: Jt6eUpFMjJCtJeAQY5CdQ1B72N7iidbpc6s7pB6g48/FcrAcMI+Hx6FUCj3GbWwPQ12fkWCtBcFIjuLjcQhXOkY0c8KwvB/FSvyLxcmJRxOkd1kcIyP+Zj7eZmBdVhZ4xEfAOLbcY4VMUAGiKyUFuIW8D+Tq2AWh51zZ+EybyU4=
-    - secure: IqlxIjLrWGutk/kHysL+dr0XzNwY6IhpXO2DaG8voOyZdi5NWAUuAkzLPV8EChsfpWli096GEaPcdM9OnJ2S5QVvm4q61kC65AErO/4wRxIDj7kHurpXJAEiVZzzj7/BHKGpdHsIsSpsW7YPk3qAPfoBS3mDvEwb0r9o3RTU4nM=
+    - secure: B/adBQtu3KkEibrKeGXRb5Ctey7QmKWxPUITNwsWePM5h9GW75DxMm6tVtxKllnnZIdc60GvXeDVZBJtjo7kmjcpG5yXbl9IW7dF3D1Ux4nMGkxw4hCZuaxsHOdj/Zwc9TnmRxNcFvef8P7L/httVoEJh2i5l1GfsIqsLCkuUlk=
+    - secure: I7qEKe6g6nhMbKGPWRkg60SvEaoF8kvbiEuW2tUmedSGNWtgaxhwXzr3MUE1Co7Yxu3AfgWqfILhPILDe19qgKFD4M4CqekmwUwzoTL0vkWrd1YtSbJHq3HCzGL0G8q0yvZVjIO9F8ajbD50GcHGgG9sFKR1dt9LLTdY5s2qOXA=
