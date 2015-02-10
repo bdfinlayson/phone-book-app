@@ -1,3 +1,5 @@
+/*require jquery*/
+
 describe('test suite', function () {
   it('should assert true', function () {
     true.should.be.true;
@@ -17,3 +19,9 @@ describe('new contact button', function() {
     buttonMessage().should.equal('I was clicked!');
   });
 });
+
+describe('selecting an object with jquery', function() {
+  it('should be able to select an object using jquery', function() {
+    $('boy').should.exist();
+  })
+})
