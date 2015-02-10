@@ -1,147 +1,113 @@
 /* jshint browser: true, jquery: true */
 
-'use strict'
-
-
-
-
-
-///////////////////////////////////////////////////
-///////////////////////////////////////////////////
-///////////////////////////////////////////////////
-///////////////////////////////////////////////////
-
-//function hello() {
-  //return 'world';
-//}
-
-
-//function buttonMessage(message) {
-
-  //var message = 'I was clicked!';
-   //return message;
-//}
-
-//$('input').click(function(event) {
-  //event.preventDefault();
-  //console.log('event prevented');
-  //});
-
-
-//$(document).read(function() {
-
-  //var $form = $('.form');
-  //var $tbody = $('.tbody');
-
-//});
-
-//[> jshint browser: true, jquery: true <]
-
-//'use strict';
+'use strict';
 
 var $form        = $('form'),
     $tbody       = $('tbody'),
-    FIREBASE_URL = 'https://phone-book-app.firebaseio.com/',
+    FIREBASE_URL = 'https://phone-book-app.firebaseio.com',
     fb           = new Firebase(FIREBASE_URL),
-    usersFbUrl   = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
+    usersFbUrl;
 
-//if (fb.getAuth()) {
-  //$('.login').remove();
-  //$('.loggedIn').toggleClass('hidden');
-//}
 
-//$('.register').click(function(event){
-  //var $form = $(event.target.closest('form')),
-      //email = $form.find('[type="email"]').val(),
-      //pass = $form.find('[type="password"]').val(),
-      //data = {email: email, password: pass};
+if (fb.getAuth()) {
+  usersFbUrl   = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
 
-  //fb.createUser(data, function(err, d) {
-    //console.log(err, d)
-        //if (!err) {
-            //fb.authWithPassword({email: email, password: pass}, function (err, auth){
-        //location.reload(true);
-      //});
-    //}
-  //});
+  $.get(usersFbUrl + '/friends.json', function (res) {
+    Object.keys(res).forEach(function (uuid) {
+      addRowToTable(uuid, res[uuid]);
+    });
+    });
 
-//})
+  $('.login').remove();
+  $('.loggedIn').toggleClass('hidden');
+}
 
-//$('.login form').submit(function(event){
-  //var $form = $(event.target),
-      //email = $form.find('[type="email"]').val(),
-      //pass = $form.find('[type="password"]').val();
+$('.login input[type="button"]').click(function(event){
+  var $loginForm = $(event.target).closest('form'),
+      email = $loginForm.find('[type="email"]').val(),
+      pass = $loginForm.find('[type="password"]').val(),
+      data = {email: email, password: pass};
 
-  //fb.authWithPassword({email: email, password: pass}, function(err, auth) {
-        //location.reload(true);
-  //});
+  fb.createUser(data, function (err) {
+        if (!err) {
+            fb.authWithPassword(data, function (err) {
+        if (!err) {
+          location.reload(true);
+        }
+      });
+    }
+  });
+});
 
-  //event.preventDefault();
-//});
+$('.login form').submit(function(event){
+  var $form = $(event.target),
+      email = $form.find('[type="email"]').val(),
+      pass = $form.find('[type="password"]').val();
 
-//$('.logout').click(function(){
-  //fb.unauth();
-  //location.reload(true);
-//})
+  fb.authWithPassword({email: email, password: pass}, function(err, auth) {
+        location.reload(true);
+  });
 
-//$.get(usersFbUrl + '/friends.json', function (res) {
-  //Object.keys(res).forEach(function (uuid) {
-    //addRowToTable(uuid, res[uuid]);
-  //});
-//});
+  event.preventDefault();
+});
 
-//$tbody.on('click', 'td', function (evt) {
-  //// this = event.target;
-  //var $tr  = $(evt.target).closest('tr'),
-      //uuid = $tr.data('uuid'),
-      //friendName = $tr.find('td').text();
+$('.logout').click(function(){
+  fb.unauth();
+  location.reload(true);
+})
 
-  //if (confirmFriendRemoval(friendName)) {
-    //$tr.remove();
-    //deleteFriendFromDb(uuid);
-  //}
-//});
+$tbody.on('click', 'td', function (evt) {
+  // this = event.target;
+  var $tr  = $(evt.target).closest('tr'),
+      uuid = $tr.data('uuid'),
+      friendName = $tr.find('td').text();
 
-//$form.submit(function (evt) {
-  //var $friendName = $('input[name="friendName"]'),
-      //req         = {name: $friendName.val()};
+  if (confirmFriendRemoval(friendName)) {
+    $tr.remove();
+    deleteFriendFromDb(uuid);
+  }
+});
 
-  //evt.preventDefault();
+$form.submit(function (evt) {
+  var $friendName = $('input[name="friendName"]'),
+      req         = {name: $friendName.val()};
 
-  //addFriendToDb(req, function (res) {
-    //var $tr = $('<tr><td>' + req.name + '</td></tr>');
+  evt.preventDefault();
 
-    //$tr.attr('data-uuid', res.name);
-    //$tbody.append($tr);
-  //});
+  addFriendToDb(req, function (res) {
+    var $tr = $('<tr><td>' + req.name + '</td></tr>');
 
-  //$friendName.val('');
-//});
+    $tr.attr('data-uuid', res.name);
+    $tbody.append($tr);
+  });
 
-//function addFriendToDb(data, cb) {
-  //var url           = usersFbUrl + '/friends.json',
-      //jsonifiedData = JSON.stringify(data);
+  $friendName.val('');
+});
 
-  //$.post(url, jsonifiedData, function (res) { return cb(res); });
-//}
+function addFriendToDb(data, cb) {
+  var url           = usersFbUrl + '/friends.json',
+      jsonifiedData = JSON.stringify(data);
 
-//function deleteFriendFromDb(uuid) {
-  //var url = usersFbUrl + '/friends/' + uuid + '.json';
+  $.post(url, jsonifiedData, function (res) { return cb(res); });
+}
 
-  //$.ajax(url, {type: 'DELETE'});
-//}
+function deleteFriendFromDb(uuid) {
+  var url = usersFbUrl + '/friends/' + uuid + '.json';
 
-//function addRowToTable(uuid, data) {
-  //var $tr = $('<tr><td>' + data.name + '</td></tr>');
+  $.ajax(url, {type: 'DELETE'});
+}
 
-  //$tr.attr('data-uuid', uuid);
-  //$tbody.append($tr);
-//}
+function addRowToTable(uuid, data) {
+  var $tr = $('<tr><td>' + data.name + '</td></tr>');
 
-//function confirmFriendRemoval(friendName) {
-  //var confirmationText = 'Remove ' + friendName + ' from friend list?',
-      //isConfirmed      = window.confirm(confirmationText);
+  $tr.attr('data-uuid', uuid);
+  $tbody.append($tr);
+}
 
-  //return isConfirmed;
-//}
+function confirmFriendRemoval(friendName) {
+  var confirmationText = 'Remove ' + friendName + ' from friend list?',
+      isConfirmed      = window.confirm(confirmationText);
+
+  return isConfirmed;
+}
 
