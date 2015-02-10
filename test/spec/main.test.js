@@ -10,3 +10,10 @@ describe('hello', function () {
     hello().should.equal('world');
   });
 });
+
+
+describe('new contact button', function() {
+  it('should listen for a click and return a message', function() {
+    buttonMessage().should.equal('I was clicked!');
+  });
+});

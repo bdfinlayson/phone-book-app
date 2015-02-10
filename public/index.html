@@ -8,11 +8,29 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
+    <h1>Contact Book</h1>
 
-    <div class="container">
-      <h1>My Site Title</h1>
-    </div>
+    <form action="#">
+      Name: <input type="text" name="contactFirstName" required>
+      <input name="contactName" type="submit" value="New Contact">
+    </form>
 
+   <table style="width:100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+
+  <form>
+    <input type='submit' value='Refresh Contact List'>
+  </form>
+
+    <script src='../bower_components/jquery/dist/jquery.min.js'></script>
     <script src="js/main.js"></script>
   </body>
 </html>
