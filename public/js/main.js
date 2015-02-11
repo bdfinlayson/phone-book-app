@@ -92,8 +92,6 @@ $form.submit(function (evt) {
   evt.preventDefault();
 
   addFriendToDb(req, function (res) {
-    console.log(req)
-    console.log(res)
     var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(req.email)});
     var $tr = $('<tr><td><img src="'+gravatar[0].currentSrc+'"></img></td><td>' + req.firstName + '</td><td>' +req.lastName+ '</td><td>' + req.phone + '</td><td><a href="mailto:'+req.email+'">' + req.email + '</a></td><td>' + req.address + '</td><td><a href="https://twitter.com/'+req.twitter+'"target="_blank">' + req.twitter + '</a></td><td><a href="https://github.com/' + req.github+'" target="_blank">' +req.github + '</a></td><td class="delete">Delete '+req.firstName+' '+req.lastName+'</td>></tr>' );
 
