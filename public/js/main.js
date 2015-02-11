@@ -67,9 +67,12 @@ $tbody.on('click', '.delete', function (evt) {
       deleteUser = $tr.find('.delete').text();
 
   if (confirmFriendRemoval(deleteUser)) {
-    $tr.remove();
-    deleteFriendFromDb(uuid);
-  }
+    $tr.css('background-color', '#FF3700');
+    $tr.fadeOut(400, function() {
+      $tr.remove();
+      deleteFriendFromDb(uuid);
+    })
+    }
 });
 
 $form.submit(function (evt) {
