@@ -96,7 +96,7 @@ $form.submit(function (evt) {
 
   addFriendToDb(req, function (res) {
     var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(req.email)});
-    var $tr = $('<tr><td><img src="'+gravatar[0].currentSrc+'"></img></td><td>' + req.firstName + '</td><td>' +req.lastName+ '</td><td>' + req.phone + '</td><td><a href="mailto:'+req.email+'">' + req.email + '</a></td><td>' + req.address + '</td><td><a href="https://twitter.com/'+req.twitter+'"target="_blank">' + req.twitter + '</a></td><td><a href="https://github.com/' + req.github+'" target="_blank">' +req.github + '</a></td><td class="delete">Delete '+req.firstName+' '+req.lastName+'</td>></tr>' );
+    var $tr = $('<tr><td class="imgContainer"><img class="image" src="'+gravatar[0].currentSrc+'"></img><input class="enlarge" type="button" value="Enlarge"></td><td>' + req.firstName + '</td><td>' +req.lastName+ '</td><td>' + req.phone + '</td><td><a href="mailto:'+req.email+'">' + req.email + '</a></td><td>' + req.address + '</td><td><a href="https://twitter.com/'+req.twitter+'"target="_blank">' + req.twitter + '</a></td><td><a href="https://github.com/' + req.github+'" target="_blank">' +req.github + '</a></td><td class="delete">Delete '+req.firstName+' '+req.lastName+'</td>></tr>' );
 
     $tr.attr('data-uuid', res.uuid);
   $tbody.append($tr.css('background-color', '#ffffff').fadeIn(800));
@@ -140,8 +140,9 @@ function confirmFriendRemoval(friendName) {
 }
 
 
-$('.imgContainer input[type="button"] ').click(function(event) {
-  $(event.target).closest('img').animate({
+$('#target').on('click', '.enlarge', function(event) {
+  console.log('enlarge me');
+  $('#target').closest('img').animate({
     width: '300px'
-  }, 1500 );
+  }, 3500 );
 });
