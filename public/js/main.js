@@ -99,7 +99,7 @@ $form.submit(function (evt) {
     var $tr = $('<tr><td><img src="'+gravatar[0].currentSrc+'"></img></td><td>' + req.firstName + '</td><td>' +req.lastName+ '</td><td>' + req.phone + '</td><td><a href="mailto:'+req.email+'">' + req.email + '</a></td><td>' + req.address + '</td><td><a href="https://twitter.com/'+req.twitter+'"target="_blank">' + req.twitter + '</a></td><td><a href="https://github.com/' + req.github+'" target="_blank">' +req.github + '</a></td><td class="delete">Delete '+req.firstName+' '+req.lastName+'</td>></tr>' );
 
     $tr.attr('data-uuid', res.uuid);
-  $tbody.append($tr);
+  $tbody.append($tr.css('background-color', '#ffffff').fadeIn(800));
   });
 
   $firstName.val('');
@@ -126,7 +126,7 @@ function deleteFriendFromDb(uuid) {
 
 function addRowToTable(uuid, data) {
   var gravatar = $('<img>').attr({src: 'http://www.gravatar.com/avatar/' + md5(data.email)});
-  var $tr = $('<tr><td><img src="'+gravatar[0].currentSrc+'"></img></td><td>' + data.firstName + '</td><td>' +data.lastName+ '</td><td>' + data.phone + '</td><td><a href="mailto:'+data.email+'">' + data.email + '</a></td><td>' + data.address + '</td><td><a href="https://twitter.com/'+data.twitter+'"target="_blank">' + data.twitter + '</a></td><td><a href="https://github.com/' + data.github+'" target="_blank">' + data.github + '</a></td><td class="delete">Delete '+data.firstName+' '+data.lastName+'</td>></tr>' );
+    var $tr = $('<tr><td class="imgContainer"><img class="image" src="'+gravatar[0].currentSrc+'"></img><input class="enlarge" type="button" value="Enlarge"></td><td>' + data.firstName + '</td><td>' +data.lastName+ '</td><td>' + data.phone + '</td><td><a href="mailto:'+data.email+'">' + data.email + '</a></td><td>' + data.address + '</td><td><a href="https://twitter.com/'+data.twitter+'"target="_blank">' + data.twitter + '</a></td><td><a href="https://github.com/' + data.github+'" target="_blank">' + data.github + '</a></td><td class="delete">Delete '+data.firstName+' '+data.lastName+'</td>></tr>' );
 
   $tr.attr('data-uuid', uuid);
   $tbody.append($tr);
@@ -139,3 +139,9 @@ function confirmFriendRemoval(friendName) {
   return isConfirmed;
 }
 
+
+$('.imgContainer input[type="button"] ').click(function(event) {
+  $(event.target).closest('img').animate({
+    width: '300px'
+  }, 1500 );
+});
