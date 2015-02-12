@@ -23,6 +23,6 @@ describe('new contact button', function() {
 
 describe('selecting an object with jquery', function() {
   it('should be able to select an object using jquery', function() {
-    $('boy').should.exist();
+    $('doesntExist').should.exist();
   })
 })
