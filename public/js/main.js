@@ -6,13 +6,15 @@ var $form        = $('form'),
     $tbody       = $('tbody'),
     FIREBASE_URL = 'https://phone-book-app.firebaseio.com',
     fb           = new Firebase(FIREBASE_URL),
+    token,
     usersFbUrl;
 
 
 if (fb.getAuth()) {
   usersFbUrl   = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
+  token = fb.getAuth().token;
 
-  $.get(usersFbUrl + '/friends.json', function (res) {
+  $.get(usersFbUrl + '/friends.json?auth=' + token, function (res) {
     Object.keys(res).forEach(function (uuid) {
       addRowToTable(uuid, res[uuid]);
     });
