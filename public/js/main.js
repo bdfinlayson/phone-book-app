@@ -11,12 +11,14 @@ var $form        = $('form'),
 
 
 if (fb.getAuth()) {
-  usersFbUrl   = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
+  usersFb  = new Firebase (FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data/friends');
   token = fb.getAuth().token;
 
-  $.get(usersFbUrl + '/friends.json?auth=' + token, function (res) {
-    Object.keys(res).forEach(function (uuid) {
-      addRowToTable(uuid, res[uuid]);
+  usersFb.once('value', function (res) {
+    var data = res.val();
+    //(usersFbUrl + '/friends.json?auth=' + token, function (res) {
+    Object.keys(data).forEach(function (uuid) {
+      addRowToTable(uuid, data[uuid]);
     });
     });
 
